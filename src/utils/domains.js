@@ -2,7 +2,27 @@
  * Domain & URL Configuration for multi-domain routing:
  * - Main Website: ilumaa.com (Local dev default: http://localhost:5173)
  * - Tech Website: tech.ilumaa.com (Local dev default: http://localhost:5174)
+ * - Learning Website: learning.ilumaa.com (Local dev default: http://localhost:5175)
  */
+
+export const getLearningUrl = () => {
+  if (import.meta.env.VITE_LEARNING_URL) {
+    return import.meta.env.VITE_LEARNING_URL;
+  }
+
+  if (typeof window !== "undefined") {
+    const isLocalhost =
+      window.location.hostname === "localhost" ||
+      window.location.hostname === "127.0.0.1";
+
+    if (isLocalhost) {
+      const port = import.meta.env.VITE_LEARNING_PORT || "5175";
+      return `http://localhost:${port}`;
+    }
+  }
+
+  return "https://learning.ilumaa.com";
+};
 
 export const getTechUrl = () => {
   if (import.meta.env.VITE_TECH_URL) {
