@@ -1,7 +1,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronRight, Menu, X } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
-import { getMainUrl, getTechUrl } from "../utils/domains";
+import { getMainUrl, getTechUrl, getLearningUrl } from "../utils/domains";
 
 function Navbar({ isTechnologyPage }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -9,6 +9,7 @@ function Navbar({ isTechnologyPage }) {
   const logoSrc = `${import.meta.env.BASE_URL}ilumaa_logo.png`;
   const techUrl = getTechUrl();
   const mainUrl = getMainUrl();
+  const learningUrl = getLearningUrl();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,6 +26,7 @@ function Navbar({ isTechnologyPage }) {
     if (isTechnologyPage) {
       return [
         { label: "Home", href: mainUrl },
+        { label: "Learning", href: learningUrl },
         { label: "Solutions", href: `${mainUrl}#solutions` },
         { label: "Tech", href: techUrl },
         { label: "Connect", href: `${mainUrl}#connect` },
@@ -32,16 +34,18 @@ function Navbar({ isTechnologyPage }) {
     }
     return [
       { label: "Home", href: "/" },
+      { label: "Learning", href: learningUrl },
       { label: "Solutions", href: "/#solutions" },
       { label: "Tech", href: techUrl },
       { label: "Connect", href: "/#connect" },
     ];
-  }, [isTechnologyPage, mainUrl, techUrl]);
+  }, [isTechnologyPage, mainUrl, techUrl, learningUrl]);
 
   const mobileNavItems = useMemo(() => {
     if (isTechnologyPage) {
       return [
         { label: "Home", href: mainUrl },
+        { label: "Learning", href: learningUrl },
         { label: "Solutions", href: `${mainUrl}#solutions` },
         { label: "Tech", href: techUrl },
         { label: "Connect", href: `${mainUrl}#connect` },
@@ -49,13 +53,14 @@ function Navbar({ isTechnologyPage }) {
     }
     return [
       { label: "Home", href: "/" },
+      { label: "Learning", href: learningUrl },
       { label: "Why Choose Us", href: "/#why-choose-us" },
       { label: "Our Solutions", href: "/#solutions" },
       { label: "Our Approach", href: "/#approach" },
       { label: "Tech", href: techUrl },
       { label: "Connect", href: "/#connect" },
     ];
-  }, [isTechnologyPage, mainUrl, techUrl]);
+  }, [isTechnologyPage, mainUrl, techUrl, learningUrl]);
 
   const handleNav = (event, href, isMobile = false) => {
     if (typeof window === "undefined") {
