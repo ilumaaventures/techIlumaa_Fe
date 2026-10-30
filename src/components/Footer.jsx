@@ -6,24 +6,20 @@ import {
   MapPin,
   Phone,
 } from "lucide-react";
-import { getMainUrl, getTechUrl } from "../utils/domains";
+import { getMainUrl, getTechUrl, getLearningUrl } from "../utils/domains";
 
 function Footer({ isTechnologyPage }) {
   const logoSrc = `${import.meta.env.BASE_URL}ilumaa_logo.png`;
   const techUrl = getTechUrl();
   const mainUrl = getMainUrl();
+  const learningUrl = getLearningUrl();
 
-  const quickLinks = isTechnologyPage
-    ? [
-        { label: "Home", href: mainUrl },
-        { label: "Tech", href: techUrl },
-        { label: "Connect", href: `${mainUrl}#connect` },
-      ]
-    : [
-        { label: "Solutions", href: "/#solutions" },
-        { label: "Tech", href: techUrl },
-        { label: "Connect", href: "/#connect" },
-      ];
+  const quickLinks = [
+    { label: "Tech", href: techUrl },
+    { label: "Learning", href: learningUrl },
+    { label: "Solutions", href: "#projects" },
+    { label: "Connect", href: "#connect" },
+  ];
 
   const chips = [
     "Human Intelligence",
@@ -39,7 +35,7 @@ function Footer({ isTechnologyPage }) {
       <div className="mx-auto max-w-[1520px] px-4 py-16 sm:px-6 lg:px-8">
         <div className="grid gap-10 lg:grid-cols-[1.2fr_0.75fr_0.85fr_0.7fr]">
           <div>
-            <a href={isTechnologyPage ? mainUrl : "/"} className="inline-block">
+            <a href={techUrl} className="inline-block">
               <img
                 src={logoSrc}
                 alt="ILUMAA"
