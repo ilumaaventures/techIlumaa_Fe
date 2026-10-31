@@ -7,13 +7,32 @@ function App() {
   useEffect(() => {
     if (typeof window === "undefined") return;
 
+    // Ensure browser starts at top on refresh instead of restoring scroll
+    if ("scrollRestoration" in window.history) {
+      window.history.scrollRestoration = "manual";
+    }
+
+    const navEntry = performance.getEntriesByType("navigation")[0];
+    const isReload = navEntry?.type === "reload" || performance.navigation?.type === 1;
+
+    if (isReload) {
+      if (window.location.hash) {
+        window.history.replaceState(null, "", window.location.pathname + window.location.search);
+      }
+      window.scrollTo(0, 0);
+      return;
+    }
+
     const scrollToHash = () => {
       const { hash } = window.location;
       if (!hash) return;
       const targetId = hash.replace(/^#/, "");
       const target = document.getElementById(targetId);
       if (target) {
-        target.scrollIntoView({ behavior: "smooth", block: "start" });
+        const navEl = document.querySelector("header");
+        const navHeight = navEl ? navEl.offsetHeight : 68;
+        const targetY = Math.max(0, target.getBoundingClientRect().top + window.scrollY - (navHeight - 1));
+        window.scrollTo({ top: targetY, behavior: "smooth" });
       }
     };
 

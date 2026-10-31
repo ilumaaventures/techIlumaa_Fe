@@ -69,13 +69,15 @@ function Navbar({ isTechnologyPage }) {
       const el = document.getElementById(targetId);
       if (el) {
         event.preventDefault();
-        window.history.pushState(null, "", `#${targetId}`);
+        const navEl = document.querySelector("header");
+        const navHeight = navEl ? navEl.offsetHeight : 68;
+        const targetY = Math.max(0, el.getBoundingClientRect().top + window.scrollY - (navHeight - 1));
         if (isMobile) {
           setTimeout(() => {
-            el.scrollIntoView({ behavior: "smooth", block: "start" });
+            window.scrollTo({ top: targetY, behavior: "smooth" });
           }, 80);
         } else {
-          el.scrollIntoView({ behavior: "smooth", block: "start" });
+          window.scrollTo({ top: targetY, behavior: "smooth" });
         }
         return;
       }
@@ -146,8 +148,9 @@ function Navbar({ isTechnologyPage }) {
         {/* Desktop CTA */}
         <div className="hidden lg:flex">
           <a
-            href="#connect"
-            onClick={(e) => handleNav(e, "#connect", false)}
+            href="https://mail.google.com/mail/?view=cm&fs=1&to=connect@ilumaa.com&su=Contact%20Us"
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-accent-blue to-accent-cyan px-4 py-1.5 text-[10.5px] font-bold uppercase tracking-[0.16em] text-white shadow-[0_3px_10px_rgba(77,124,255,0.25)] transition hover:brightness-105"
           >
             Contact Us
@@ -187,8 +190,10 @@ function Navbar({ isTechnologyPage }) {
                 </a>
               ))}
               <a
-                href="#connect"
-                onClick={(e) => handleNav(e, "#connect", true)}
+                href="https://mail.google.com/mail/?view=cm&fs=1&to=connect@ilumaa.com&su=Contact%20Us"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setIsOpen(false)}
                 className="btn-primary mt-1 w-full justify-center py-2.5 text-xs"
               >
                 Contact Us
